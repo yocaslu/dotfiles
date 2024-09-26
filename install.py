@@ -1,14 +1,16 @@
 import os
 import sys
 
-def check_if_config() -> bool:
+HOME_PATH: str = os.environ['HOME']
 
-def move_to_home():
-
-def move_to_config():
+# def check_if_conf ig() -> bool:
+#
+# def move_to_home():
+#
+# def move_to_config():
 
 def main():
-    
+    print(HOME_PATH)
 
 if __name__ == '__main__':
     main()
