@@ -1,8 +1,8 @@
 import os
 import sys
 import subprocess
-import logging 
-from pprint import pprint
+import logging
+from rich.pretty import pprint
 
 logging.basicConfig(level=logging.DEBUG)
 
