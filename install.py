@@ -1,13 +1,50 @@
 import os
+from os.path import isdir
 import sys
 import subprocess
 import logging
+from typing import List 
+
+from rich.logging import RichHandler
+from rich.console import Console
+from rich.traceback import install
+from rich import print
 from rich.pretty import pprint
 
-logging.basicConfig(level=logging.DEBUG)
+install() # pretty tracebacks
+console = Console()
+rhandler = RichHandler(
+    console=console, 
+    rich_tracebacks=True, 
+    markup=True, 
+    tracebacks_show_locals=True
+)
+
+logging.basicConfig(
+    level=logging.DEBUG, 
+    handlers=[rhandler]
+)
 
 HOME_PATH: str = os.environ['HOME']
 CONFIG_PATH: str = HOME_PATH + '/' + '.config'
+
+def print_dir(dir: List[str] = []):
+    logger = logging.getLogger('print_dir()')
+    if not len(dir) > 0:
+        return
+
+    files: List[str] = []
+    folders: List[str] = []
+
+    for content in dir:
+        if os.path.isdir(content):
+            folders.append(content)
+        else:
+            files.append(content)
+
+    cwd = os.getcwd()
+    logger.info(f'Folders in {cwd}: {folders}')
+    logger.info(f'Files in {cwd}: {files}')
 
 def run_commands(commands: list[str], cwd: str = os.getcwd(), shell = False) -> int:
     logger = logging.getLogger('run_commands()')
@@ -19,7 +56,6 @@ def run_commands(commands: list[str], cwd: str = os.getcwd(), shell = False) -> 
             logger.error(f'An error occurred while trying to execute: {commands}\n{proc.stderr}')
             return proc.returncode
         else: 
-            # logger.info(f'{commands} ran without errors')
             return proc.returncode
 
 # refatorar usando access()
@@ -29,7 +65,7 @@ def install_home():
         logger.critical('linux home folder does not exist')
         sys.exit(-1)
     
-    home_files = os.listdir('home')
+    home_files = os.listdir('home'); print_dir(home_files)
     if not len(home_files) > 1:
         logger.info('repo home folder is empty')
         return
@@ -51,7 +87,7 @@ def install_config():
             logger.info(f'{CONFIG_PATH} folder was created.')
 
     
-    config_files = os.listdir('config')
+    config_files = os.listdir('config'); print_dir(config_files)
     if not len(config_files) > 1:
         logger.info('config files folder is empty')
     else:
@@ -63,7 +99,6 @@ def install_config():
     
 
 def main():
-    logger = logging.getLogger('main()')
     install_home()
     install_config()
 
