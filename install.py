@@ -19,7 +19,7 @@ def run_commands(commands: list[str], cwd: str = os.getcwd(), shell = False) -> 
             logger.error(f'An error occurred while trying to execute: {commands}\n{proc.stderr}')
             return proc.returncode
         else: 
-            logger.info(f'{commands} ran without errors')
+            # logger.info(f'{commands} ran without errors')
             return proc.returncode
 
 # refatorar usando access()
