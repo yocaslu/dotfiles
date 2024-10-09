@@ -37,6 +37,9 @@ nnn ()
     }
 }
 
+alias nnn='nnn -dH'
+alias n='nnn -dH'
+
 export TERM=xterm-256color
 export EDITOR=nvim
 export VISUAL=nvim
@@ -45,7 +48,6 @@ PS1='\u@\h \w \$ '
 
 # shell script calls
 SHELL_SCRIPTS_PATH=$HOME/.scripts/.shell-scripts
-alias conf="exec $SHELL_SCRIPTS_PATH/config-files.sh"
 alias dev="exec $SHELL_SCRIPTS_PATH/tmux-dev.sh ~/git-repos/"
 
 # python3 script calls
@@ -77,14 +79,15 @@ alias xmmp="~/.xmmp.sh"
 alias syu="sudo pacman -Syu"
 alias install-yay='sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si'
 
-# cargo aliases
-alias cargo-clippy='cargo clippy -- -Wclippy::nursery -Wclippy::pedantic && cargo build'
-
-# Set up fzf key bindings and fuzzy completion
+# Set up ff key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
 # starship 
 eval "$(starship init bash)"
 
+# rust
 . "$HOME/.cargo/env"
 
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
