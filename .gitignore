@@ -2,3 +2,4 @@
 /.env
 /build
 install.spec
+config/nvim/lazy-lock.json
