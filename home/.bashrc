@@ -88,6 +88,10 @@ eval "$(starship init bash)"
 # rust
 . "$HOME/.cargo/env"
 
+# download SDKMAN
+alias download-sdkman='curl -s "https://get.sdkman.io" | bash'
+
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
