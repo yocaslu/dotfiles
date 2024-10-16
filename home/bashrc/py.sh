@@ -1,5 +1,4 @@
 alias py="python3"
 
-# python3 script calls
-PY_SCRIPTS_PATH=$HOME/.scripts/.pyscripts
+PY_SCRIPTS_PATH=$REPO_PATH/dotfiles/scripts/py_scripts
 alias pyenv='python3 $PY_SCRIPTS_PATH/pyenv.py $(pwd) && source .env/bin/activate'
