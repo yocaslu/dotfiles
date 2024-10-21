@@ -3,3 +3,4 @@
 /build
 install.spec
 config/nvim/lazy-lock.json
+home/.fonts/.uuid
