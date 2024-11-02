@@ -6,7 +6,7 @@
 [[ $- != *i* ]] && return
 
 export TERM=xterm-256color
-export EDITOR='exec distrobox enter dev -- tmux neww -c nvim'
+export EDITOR=nvim
 export VISUAL=nvim
 
 PS1='\u@\h \w \$ '
