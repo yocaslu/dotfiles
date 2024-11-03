@@ -1,1 +1,1 @@
-. "$HOME/.cargo/env"
+alias cg='cargo'
