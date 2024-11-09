@@ -2,9 +2,15 @@
 require("nvchad.configs.lspconfig").defaults()
 
 local lspconfig = require "lspconfig"
+local servers = {
+  "clangd",
+  "pyright",
+  "rust_analyzer",
+  "jdtls",
+  "groovyls",
+  "gradle_ls"
+}
 
--- EXAMPLE
-local servers = { "clangd", "pyright", "rust_analyzer", "jdtls", "groovyls", "gradle_ls" }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
