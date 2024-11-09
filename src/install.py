@@ -30,7 +30,7 @@ HOME_PATH: str = os.environ['HOME']
 CONFIG_PATH: str = HOME_PATH + '/' + '.config'
 
 def run_commands(commands: list[str], cwd: str = os.getcwd(), shell = False) -> tuple[int, str]:
-    logger = logging.getLogger('run_commands()')
+    # logger = logging.getLogger('run_commands()')
     if not len(commands) > 1:
         logging.info('command list is empty')
     else:
