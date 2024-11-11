@@ -6,20 +6,28 @@ use std::process::exit;
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct DirContent {
-  files: Vec<String>,
-  dirs: Vec<String>
+  files: Vec<PathBuf>, // change to Vec<PathBuf>
+  dirs: Vec<PathBuf> // change to Vec<PathBuf>
 }
 
 impl DirContent {
-  pub fn new(files: Vec<String>, dirs: Vec<String>) -> DirContent {
+
+  pub fn new() -> DirContent {
+    DirContent {
+      files: Vec::new(), 
+      dirs: Vec::new()
+    }
+  }
+
+  pub fn from(files: Vec<PathBuf>, dirs: Vec<PathBuf>) -> DirContent {
     DirContent {files, dirs}
   }
 
-  pub fn files(&self) -> &Vec<String> {
+  pub fn files(&self) -> &Vec<PathBuf> {
     return &self.files;
   } 
 
-  pub fn dirs(&self) -> &Vec<String> {
+  pub fn dirs(&self) -> &Vec<PathBuf> {
     return &self.dirs;
   } 
 }
@@ -50,16 +58,16 @@ fn craw(path: PathBuf, target: PathBuf) -> Result<PathBuf, Error> {
   return Err(Error::from(ErrorKind::NotFound)); 
 }
 
-pub fn searchdir(origin: &str, target: &str) -> Result<String, Error> {
+pub fn searchdir(origin: &PathBuf, target: &PathBuf) -> Result<PathBuf, Error> {
   if !Path::new(origin).exists() {
-    error!("origin path does not exist: {}", origin);
+    error!("origin path does not exist: {}", origin.to_str().unwrap());
     return Err(Error::from(ErrorKind::NotFound));
   }
 
   match craw(PathBuf::from(origin), PathBuf::from(target)) {
     Ok(p) => {
       if p.is_dir() {
-        Ok(String::from(p.to_str().unwrap()))
+        Ok(p)
       } else {
         error!("the element found is not a directory: {}", p.to_str().unwrap());
         Err(Error::from(ErrorKind::NotFound))
@@ -67,16 +75,16 @@ pub fn searchdir(origin: &str, target: &str) -> Result<String, Error> {
     },
 
     Err(e) => {
-      error!("{} not found crawling {}", target, origin);
+      error!("{} not found crawling {}", target.to_str().unwrap(), origin.to_str().unwrap());
       Err(e) 
     }
   }
 }
 
-pub fn scandir(path: &str) -> DirContent {
+pub fn scandir(path: &PathBuf) -> DirContent {
   let path = Path::new(path);
-  let mut dirs: Vec<String> = Vec::new();
-  let mut files: Vec<String> = Vec::new();
+  let mut files: Vec<PathBuf> = Vec::new();
+  let mut dirs: Vec<PathBuf> = Vec::new();
 
   let content = match path.read_dir() {
     Ok(c) => {
@@ -93,27 +101,17 @@ pub fn scandir(path: &str) -> DirContent {
 
   for x in &content {
     if x.path().is_dir() {
-      dirs.push(
-        x.path()
-          .to_str()
-          .unwrap()
-          .to_string()
-      );
+      dirs.push(x.path());
 
     } else if x.path().is_file() {
-      files.push(
-        x.path()
-          .to_str()
-          .unwrap()
-          .to_string()
-      );
+      files.push(x.path());
     }
   }
 
-  DirContent::new(files, dirs)
+  DirContent::from(files, dirs)
 }
 
-pub fn symlink(src: &str, dest: &str) -> Result<(), Error>{
+pub fn symlink(src: &PathBuf, dest: &PathBuf) -> Result<(), Error>{
   let src = Path::new(src);
   let dest = Path::new(dest);
   
@@ -127,7 +125,7 @@ pub fn symlink(src: &str, dest: &str) -> Result<(), Error>{
   };
 }
 
-pub fn create_directory(path: &str) {
+pub fn create_directory(path: &PathBuf) {
   let path = Path::new(path);
   if path.exists() {
     error!("{} already exists. Aborting.", path.to_str().unwrap());

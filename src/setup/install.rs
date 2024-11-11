@@ -1,8 +1,8 @@
-use crate::modules::fs::{ symlink, searchdir, scandir, create_directory };
+use crate::modules::fs::{ create_directory, scandir, searchdir, symlink, DirContent };
 use crate::modules::env::get_home_path;
 use log::{ error, info };
 use std::process::exit;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 pub fn link_home(dotfiles_path: &str) {
   let home_path = get_home_path();
@@ -40,8 +40,8 @@ pub fn link_home(dotfiles_path: &str) {
   }
 }
 
-pub fn link_config(dotfile_path: &str) {
-  let dotfiles_config_path = match searchdir(dotfile_path, "config") {
+pub fn link_config(dotfile_path: &PathBuf) {
+  let dotfiles_config_path = match searchdir(dotfile_path, &PathBuf::from(".config")) {
     Ok(s) => s,
     Err(_) => {
       error!("failed to find config folder in dotfiles directory.");

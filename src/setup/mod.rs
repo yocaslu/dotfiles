@@ -11,7 +11,8 @@ pub fn install() {
 }
 
 pub fn uninstall() {
-
+  let dotfiles_path = look_for_dotfiles();
+  
 }
 
 fn look_for_dotfiles() -> String {
