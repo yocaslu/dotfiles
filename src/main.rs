@@ -12,3 +12,10 @@ fn main() {
     Commands::Uninstall => uninstall()
   } 
 }
+
+/* use std::os::unix::fs;
+
+fn main() -> std::io::Result<()> {
+    fs::symlink("a.txt", "b.txt")?;
+    Ok(())
+} */
