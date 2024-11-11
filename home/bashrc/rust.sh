@@ -1,1 +1,0 @@
-alias cg='cargo'
