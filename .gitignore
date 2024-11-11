@@ -9,3 +9,4 @@ home/.ssh/id_ed25519.pub
 home/.ssh/id_ed25519_github
 home/.ssh/known_hosts
 home/.ssh/known_hosts.old
+target/
