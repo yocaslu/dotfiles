@@ -7,6 +7,7 @@ use modules::log::init_logger;
 
 fn main() {
   init_logger();
+
   match get_args().get_cmd() {
     Commands::Install => install(),
     Commands::Uninstall => uninstall()
