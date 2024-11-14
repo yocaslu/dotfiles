@@ -25,34 +25,6 @@ impl DirContent {
     DirContent {files, symlinks, dirs}
   }
 
-  pub fn push_file(&mut self, file_path: PathBuf) -> Result<(), io::Error> {
-    if !file_path.is_file() {
-      return Err(Error::from(ErrorKind::InvalidData));
-    }
-    
-    self.files.push(file_path);
-    Ok(())
-  }
-
-  pub fn push_symlink(&mut self, symlink_path: PathBuf) -> Result<(), io::Error> {
-    if !symlink_path.is_symlink() {
-      return Err(Error::from(ErrorKind::InvalidData));
-    }
-    
-    self.files.push(symlink_path);
-    Ok(())
-  }
-
-  pub fn push_dir(&mut self, dir_path: PathBuf) -> Result<(), io::Error> {
-
-    if !dir_path.is_dir() {
-      return Err(Error::from(ErrorKind::InvalidData));
-    }
-    
-    self.files.push(dir_path);
-    Ok(())
-  }
-
   pub fn files(&self) -> &Vec<PathBuf> {
     return &self.files;
   } 
