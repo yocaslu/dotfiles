@@ -1,8 +1,6 @@
 mod install;
 mod uninstall;
-
 use std::path::PathBuf;
-
 use crate::modules::fs::searchdir;
 use crate::modules::env::get_pwd;
 
@@ -14,7 +12,8 @@ pub fn install() {
 
 pub fn uninstall() {
   let dotfiles_path = look_for_dotfiles();
-  
+  uninstall::unlink_home(&dotfiles_path);
+  uninstall::unlink_config(&dotfiles_path); 
 }
 
 fn look_for_dotfiles() -> PathBuf {

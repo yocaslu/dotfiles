@@ -80,9 +80,14 @@ pub fn link_config(dotfile_path: &PathBuf) {
   let mut config_path = get_home_path(); 
   config_path.push(".config");
 
-  dbg!(&config_path);
   if !Path::new(&config_path).exists() {
-    create_directory(&config_path);
+    match create_directory(&config_path) {
+      Ok(_) => info!(".config was succefully created."),
+      Err(e) => { 
+        error!("failed to create .config in HOME due to {}", e);
+        exit(-2);
+      }
+    };
   }
 
   let dotfiles_config_content = scandir(&dotfiles_config_path);
