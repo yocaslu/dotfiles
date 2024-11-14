@@ -1,4 +1,4 @@
-use log::{ info, error };
+use log::error;
 use std::env::{ var, current_dir };
 use std::path::PathBuf;
 use std::process::exit;

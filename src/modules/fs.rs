@@ -1,4 +1,4 @@
-use log::{ info, error };
+use log::error;
 use std::fs::{ create_dir, read_dir, remove_file, DirEntry };
 use std::io::{ self, Error, ErrorKind };
 use std::path::{ Path, PathBuf };
