@@ -24,6 +24,7 @@ pub enum Commands {
   
   /// remove dotfiles symlinks from home and .config folders
   Uninstall
+
 }
 pub fn get_args() -> Args {
   Args::parse()
