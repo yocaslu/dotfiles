@@ -18,6 +18,12 @@ pub fn uninstall() {
   uninstall::unlink_config(&dotfiles_path); 
 }
 
+pub fn check() {
+  let dotfiles_path = look_for_dotfiles();
+  check::check_home(&dotfiles_path);
+  check::check_config(&dotfiles_path);
+}
+
 fn look_for_dotfiles() -> PathBuf {
   match searchdir(&get_pwd(), &PathBuf::from("dotfiles")) {
     Ok(s) => s,
