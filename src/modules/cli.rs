@@ -23,8 +23,10 @@ pub enum Commands {
   Install,
   
   /// remove dotfiles symlinks from home and .config folders
-  Uninstall
+  Uninstall,
 
+  /// Check if all links still valid
+  Check,
 }
 pub fn get_args() -> Args {
   Args::parse()

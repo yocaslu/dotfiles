@@ -22,4 +22,15 @@ return {
       }
   	},
   },
+
+  {
+    "MysticalDevil/inlay-hints.nvim",
+    event = "LspAttach",
+    dependencies = { "neovim/nvim-lspconfig" },
+    commands = { enable = true },
+    autocmd = { enable = true },
+    config = function()
+        require("inlay-hints").setup()
+    end
+  }
 }

@@ -10,7 +10,8 @@ fn main() {
 
   match get_args().get_cmd() {
     Commands::Install => install(),
-    Commands::Uninstall => uninstall()
+    Commands::Uninstall => uninstall(),
+    Commands::Check => todo!()
   } 
 }
 

@@ -1,5 +1,7 @@
 mod install;
 mod uninstall;
+mod check;
+
 use std::path::PathBuf;
 use crate::modules::fs::searchdir;
 use crate::modules::env::get_pwd;
