@@ -130,7 +130,6 @@ pub fn scandir(path: &PathBuf) -> DirContent {
     }
   }
 
-  // dbg!(&dir_content);
   return dir_content;
 }
 
