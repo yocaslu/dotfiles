@@ -1,5 +1,5 @@
 mod setup;
-use setup::{install, uninstall};
+use setup::{install, uninstall, check};
 
 mod modules;
 use modules::cli::{ get_args, Commands };
@@ -11,7 +11,7 @@ fn main() {
   match get_args().get_cmd() {
     Commands::Install => install(),
     Commands::Uninstall => uninstall(),
-    Commands::Check => todo!()
+    Commands::Check => check() 
   } 
 }
 
