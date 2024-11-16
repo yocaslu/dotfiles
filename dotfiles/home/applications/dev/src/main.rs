@@ -102,3 +102,4 @@ fn main() {
 // todo: check if an tmux session is already initiated, if so, create an diferent 
 // todo: check if all applications are installed
 // todo: create an config file to customize which applications will be started
+// todo: use fzf to get path
