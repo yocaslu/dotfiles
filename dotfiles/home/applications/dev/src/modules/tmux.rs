@@ -1,11 +1,9 @@
 use std::path::PathBuf;
 use std::process::exit;
-use std::io;
 
 use crate::proc;
 use crate::cli;
 
-use log::warn;
 use log::info;
 use log::error;
 
@@ -17,14 +15,7 @@ use log::error;
 }
 
 impl Session {
-  pub fn new() -> Session {
-    Session {
-      session_name: String::new(), 
-      workdir: PathBuf::new(),
-      applications: Vec::new()
-    }
-  }
-
+  
   pub fn from(session_name: String, workdir: PathBuf, applications: Vec<String>) -> Session {
     Session {
       session_name,
@@ -49,19 +40,6 @@ impl Session {
 
     Session::from(session_name, working_directory, applications)
   }
-}
-
-// todo: make an function that follow an symlink and extract the dir name
-fn make_session_name(path: &PathBuf, session_name: &str) -> String {
-  let file_name = match path.file_name() {
-    Some(s) => s.to_str().unwrap(),
-    None => {
-      warn!("failed to extract dir to session name. None returned.");
-      return format!("{session_name}?"); 
-    },
-  };
-
-  String::from(session_name.to_owned() + file_name)
 }
 
 // create fn create_session

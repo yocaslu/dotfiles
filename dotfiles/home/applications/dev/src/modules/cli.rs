@@ -12,10 +12,6 @@ use crate::modules::proc;
 use crate::modules::env;
 use crate::modules::logger;
 
-const DEFAULT_WORKDIR: &str = "{pwd}";
-const DEFAULT_SESSION_NAME: &str = "{workdir}";
-//const DEFAULT_APPLICATIONS: [&str ; 4] = ["nvim", "bash", "nnn", "lazygit"];
-
 #[derive(Debug, Clone)]
 pub struct Args {
   pub session_name: String,
