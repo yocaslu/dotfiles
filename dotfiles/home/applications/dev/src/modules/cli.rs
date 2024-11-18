@@ -1,4 +1,3 @@
-use std::process::exit;
 use std::path::PathBuf;
 
 use clap::Arg;
@@ -6,9 +5,7 @@ use clap::ArgMatches;
 use clap::ArgAction;
 use clap::Command;
 use clap::value_parser;
-use log::error;
 
-use crate::modules::proc;
 use crate::modules::env;
 use crate::modules::logger;
 
@@ -18,7 +15,7 @@ pub struct Args {
   pub applicatons: Vec<String>,
   pub workdir: PathBuf,
   pub debug: bool,
-  pub fzf: bool
+  //pub fzf: bool
 }
 
 impl Args {
@@ -28,7 +25,7 @@ impl Args {
       applicatons: Vec::default(),
       workdir: PathBuf::default(),
       debug: false,
-      fzf: false
+      //fzf: false
     }
   }
 
@@ -54,10 +51,10 @@ impl Args {
       .num_args(0..)
       .help("applications you want to se inside your tmux session");
 
-    let fzf = Arg::new("fzf")
-      .long("fzf")
-      .action(ArgAction::SetTrue)
-      .help("use fzf to fuzzy find the working directory.");
+    //let fzf = Arg::new("fzf")
+    //  .long("fzf")
+    //  .action(ArgAction::SetTrue)
+    //  .help("use fzf to fuzzy find the working directory.");
 
     let debug = Arg::new("debug")
       .long("debug")
@@ -68,7 +65,7 @@ impl Args {
       session_name,
       workdir,
       applications,
-      fzf,
+      //fzf,
       debug,
     ].to_vec();
   }
@@ -77,20 +74,22 @@ impl Args {
     let mut args: Args = Args::new();
 
     args.debug = cmd.get_flag("debug");
-    args.fzf = cmd.get_flag("fzf");
+    //args.fzf = cmd.get_flag("fzf");
 
     if args.debug {
       logger::init_logger();
     }
 
-    if args.fzf {
-      args.workdir = fzf();  
-    } else {
-      args.workdir = match cmd.get_one::<PathBuf>("workdir") {
-        Some(p) => p.to_path_buf(),
-        None => env::pwd() 
-      };
-    }
+    //if args.fzf {
+    //  args.workdir = fzf();
+    //} else {
+    //
+    //}
+
+    args.workdir = match cmd.get_one::<PathBuf>("workdir") {
+      Some(p) => p.to_path_buf(),
+      None => env::pwd() 
+    };
 
     args.session_name = match cmd.get_one::<String>("session_name") {
       Some(s) => s.to_string(),
@@ -119,34 +118,3 @@ pub fn parse() -> Args {
 
   Args::parse(&cmd.get_matches()) 
 }
-
-pub fn fzf() -> PathBuf {
-  match proc::execute("fzf", ["--walker=dir"].to_vec()) {
-    Ok(o) => return PathBuf::from(String::from_utf8(o.stdout).unwrap()),
-    Err(e) => {
-      error!("failed to execute fzf: {}", e);
-      exit(-1);
-    }
-  }
-}
-
-
-// this motherfucker is giving me stack overflow
-//#[derive(Debug, Clone, Parser, PartialEq)]
-//#[command(author = "Dio", about = "creates an tmux session with nvim, bash, nnn and lazygit")]
-//pub struct Args {
-//  #[arg(short, long, help = "development working directory (where tmux will be started)", default_value = DEFAULT_WORKDIR)]
-//  pub workdir: PathBuf,
-//
-//  #[arg(short, long, help = "tmux session name", default_value = DEFAULT_SESSION_NAME)]
-//  pub session_name: String,
-//
-//  #[arg(short, long, help = "applicatons to start inside tmux session")]
-//  pub applicatons: Vec<String>, 
-//
-//  #[arg(short, long, help = "Enable debug information")]
-//  pub debug: bool,
-//
-//  #[arg(long, help = "use fzf to fuzzy find the working directory")]
-//  pub fzf: bool
-//}
