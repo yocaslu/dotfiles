@@ -30,11 +30,7 @@ impl Session {
   // Aborted (core dumped)
 
   pub fn parse(args: cli::Args) -> Session {
-    let working_directory = match args.fzf {
-      true => cli::fzf(),
-      false => args.workdir
-    };
-
+    let working_directory = args.workdir;
     let session_name = args.session_name;
     let applications = args.applicatons;
 
