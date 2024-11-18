@@ -6,6 +6,7 @@ use std::process::Output;
 use log::info;
 use log::error;
 
+// make it better without using an new process
 pub fn which(app_name: &str) -> bool {
   match execute("which", [app_name].to_vec()) {
     Ok(_) => return true,
