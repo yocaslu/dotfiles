@@ -5,7 +5,12 @@ use modules::tmux;
 
 fn main() {
   let args = cli::parse();
-  let session = tmux::Session::parse(args);
+  let session = tmux::Session::from(
+    args.session_name, 
+    args.workdir, 
+    args.applicatons
+  );
+
   tmux::create_session(&session);
   tmux::create_windows(&session);
 }
