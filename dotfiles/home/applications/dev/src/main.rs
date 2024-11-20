@@ -10,6 +10,8 @@ fn main() {
     args.workdir, 
     args.applicatons
   );
+  
+  //dbg!(args)
 
   tmux::create_session(&session);
   tmux::create_windows(&session);
