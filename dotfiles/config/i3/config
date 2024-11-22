@@ -20,6 +20,7 @@ exec --no-startup-id feh --bg-fill ~/backgrounds/tux-magenta-pink.png
 # exec --no-startup-id xrdb -merge ~/.Xresources
 # exec_always --no-startup-id setxkbmap -option ctrl:nocaps
 exec_always --no-startup-id /home/dio/.xmmp.sh
+exec_always --no-startup-id guake
 
 # kill any hanging polybar processes
 exec_always killall polybar
