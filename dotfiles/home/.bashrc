@@ -11,7 +11,7 @@ export VISUAL=nvim
 
 PS1='\u@\h \w \$ '
 
-REPO_PATH=$HOME/git-repos
+REPO_PATH=$HOME/repos
 for FILE in $REPO_PATH/dotfiles/dotfiles/home/bashrc/*; do
   source $FILE
 done
