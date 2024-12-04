@@ -7,7 +7,7 @@ use log::info;
 use log::error;
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
-  pub struct Session {
+pub struct Session {
   pub session_name: String,
   pub workdir: PathBuf,
   pub applications: Vec<String>
