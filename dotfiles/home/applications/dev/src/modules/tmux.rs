@@ -47,6 +47,17 @@ pub fn create_windows(session: &Session) {
   }
 }
 
+pub fn attach(session: &Session) {
+  match proc::execute("tmux", ["attach"].to_vec(), &session.workdir) {
+    Ok(_) => info!("session attached succefully."),
+    Err(e) => {
+      error!("failed to attach to session {}, stderr: {}. exiting.", session.session_name, e);
+      kill_session(session);
+      exit(-1);
+    }
+  }
+}
+
 pub fn kill_session(session: &Session) {
   match proc::execute("tmux", ["kill-session"].to_vec(), &session.workdir) {
     Ok(_) => info!("killed session {}", &session.session_name), 

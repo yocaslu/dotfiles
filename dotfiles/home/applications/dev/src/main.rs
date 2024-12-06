@@ -13,6 +13,7 @@ fn main() {
   
   tmux::create_session(&session);
   tmux::create_windows(&session);
+  tmux::attach(&session);
 }
 
 // todo: generate more logs with more informations about the variables
