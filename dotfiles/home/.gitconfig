@@ -6,3 +6,5 @@
 [user]
 	name = lucas
 	email = 110935148+olaLucas@users.noreply.github.com
+[core]
+	editor = nvim
