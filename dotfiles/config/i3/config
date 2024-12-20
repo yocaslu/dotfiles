@@ -16,11 +16,15 @@ set $mod Mod4
 
 exec --no-startup-id base-freq
 exec --no-startup-id picom
-exec --no-startup-id feh --bg-fill ~/backgrounds/tux-magenta-pink.png
+
+# changes the wallpaper in which session start
+exec_always feh --bg-fill --randomize ~/backgrounds
+
 # exec --no-startup-id xrdb -merge ~/.Xresources
 # exec_always --no-startup-id setxkbmap -option ctrl:nocaps
+
 exec_always --no-startup-id /home/dio/.xmmp.sh
-exec_always --no-startup-id guake
+exec --no-startup-id guake
 
 # kill any hanging polybar processes
 exec_always killall polybar
