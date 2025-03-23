@@ -1,0 +1,77 @@
+theme = "default"
+
+[editor]
+cursorline = true
+bufferline = "always"
+end-of-line-diagnostics = "warning"
+
+[editor.inline-diagnostics]
+cursor-line = "error"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "block"
+
+[editor.file-picker]
+hidden = true
+
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["file-absolute-path", "file-modification-indicator", "read-only-indicator"]
+right = ["diagnostics", "version-control"]
+separator = "]["
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.lsp]
+display-progress-messages = true
+display-inlay-hints = true
+
+# enable all
+# [editor.whitespace]
+# render = "all"
+
+# or control each character
+# [editor.whitespace.render]
+# space = "all"
+# tab = "all"
+# nbsp = "none"
+# nnbsp = "none"
+# newline = "none"
+
+[editor.whitespace.characters]
+space = "·"
+nbsp = "⍽"
+nnbsp = "␣"
+tab = "→"
+newline = "⏎"
+tabpad = "·" # Tabs will look like "→···" (depending on tab width)
+
+[editor.indent-guides]
+render = true
+character = "|" # Some characters that work well: "▏", "┆", "┊", "⸽"
+skip-levels = 1
+
+[editor.soft-wrap]
+enable = true
+max-wrap = 25 # increase value to reduce forced mid-word wrapping
+max-indent-retain = 0
+wrap-indicator = ""  # set wrap-indicator to "" to hide it
+
+# At most one section each of 'keys.normal', 'keys.insert' and 'keys.select'
+[keys.normal]
+"C-s" = ":w" # Maps Ctrl-s to the typable command :w which is an alias for :write (save file)
+"C-o" = ":open ~/.config/helix/config.toml" # Maps Ctrl-o to opening of the helix config file
+"C-b" = { "n" = ":buffer-next", "p" = ":buffer-previous", "x" = ":buffer-close" }
+
+[keys.insert]
+"j" = { "k" = "normal_mode" } # Maps `jk` to exit insert mode
+
+# i miss xmodmap
+"C-j" = "move_line_down"
+"C-k" = "move_line_up"
+"C-l" = "move_char_right"
+"C-h" = "move_char_left"
+
