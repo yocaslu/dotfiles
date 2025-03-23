@@ -1,0 +1,10 @@
+# just redirect to the real config file in python
+$XONSHRC = '~/.config/xonsh/rc.py'
+source $XONSHRC
+
+# integrando zoxide
+execx($(zoxide init xonsh), 'exec', __xonsh__.ctx, filename='zoxide')
+
+# integrando starship
+execx($(/sbin/starship init xonsh --print-full-init))
+$STARSHIP_CONFIG_FILE = '/home/dio/.config/starship/starship.toml'
