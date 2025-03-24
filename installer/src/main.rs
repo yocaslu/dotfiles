@@ -1,7 +1,7 @@
 mod modules;
 use log::{error, info};
 use modules::{cli, env, fs, log as mylog};
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 fn find_modules() -> PathBuf {
     let mut pwd = env::get_pwd();
@@ -23,9 +23,8 @@ fn main() {
             targets,
             overwrite,
             all,
-        } => setup::install(overwrite, all),
-        cli::Commands::Uninstall { targets, all } => setup::uninstall(all)
-
+        } => setup::install(targets, overwrite, all),
+        cli::Commands::Uninstall { targets, all } => setup::uninstall(targets, all),
         cli::Commands::Check => {
             todo!()
         }
@@ -45,15 +44,23 @@ pub mod setup {
 
     pub fn install(modules: Vec<String>, overwrite: bool, all: bool) {
         let modules_path = find_modules();
-        if all {}
+        if all {
+            install::link_home(&modules_path, overwrite);
+            install::link_config(&modules_path, overwrite);
+        }
     }
 
     pub fn uninstall(modules: Vec<String>, all: bool) {
         let modules_path = find_modules();
+        if all {
+            uninstall::unlink_home(&modules_path);
+            uninstall::unlink_config(&modules_path);
+        }
     }
 
     mod install {
         use super::*;
+        use std::fs::create_dir;
         // todo: install selected modules and all modules
 
         pub fn link_home(dotfiles_path: &PathBuf, overwrite: bool) {
@@ -83,7 +90,7 @@ pub mod setup {
             config_path.push(".config");
 
             if !Path::new(&config_path).exists() {
-                match fs::create_directory(&config_path) {
+                match create_dir(&config_path) {
                     Ok(_) => info!(".config was succefully created."),
                     Err(e) => {
                         error!("failed to create .config in HOME due to {}", e);
@@ -113,7 +120,7 @@ pub mod setup {
             };
 
             let dotfiles_home_content = fs::scandir(&dotfiles_home_path);
-            fs::unlink(dotfiles_home_content, home_path);
+            fs::unlink(&dotfiles_home_content, home_path);
         }
 
         pub fn unlink_config(modules_path: &PathBuf) {
@@ -133,7 +140,7 @@ pub mod setup {
             };
 
             let dotfiles_config_content = fs::scandir(&dotfiles_config_path);
-            fs::unlink(dotfiles_config_content, config_path);
+            fs::unlink(&dotfiles_config_content, config_path);
         }
     }
 
