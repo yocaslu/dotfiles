@@ -48,12 +48,12 @@
 
 # Example configuration:
 #
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
+  input "2:14:SynPS/2_Synaptics_TouchPad" {
+      dwt enabled
+      tap enabled
+      natural_scroll enabled
+      middle_emulation enabled
+  }
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
@@ -239,7 +239,7 @@
     default_border pixel 3
 
     # Wallpapers
-    output * bg ~/Pictures/wallpapers/wallpaper.jpg fill   
+    # output * bg ~/Pictures/wallpapers/wallpaper.jpg fill   
 
     # Colors 
     set $rosewater #f5e0dc
