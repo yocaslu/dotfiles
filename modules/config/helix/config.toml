@@ -60,11 +60,13 @@ max-wrap = 25 # increase value to reduce forced mid-word wrapping
 max-indent-retain = 0
 wrap-indicator = ""  # set wrap-indicator to "" to hide it
 
-# At most one section each of 'keys.normal', 'keys.insert' and 'keys.select'
+# At most one section each of 'keys.normal', 'keys.insert' and 'keys.select'j  
+
 [keys.normal]
 "C-s" = ":w" # Maps Ctrl-s to the typable command :w which is an alias for :write (save file)
 "C-o" = ":open ~/.config/helix/config.toml" # Maps Ctrl-o to opening of the helix config file
 "C-b" = { "n" = ":buffer-next", "p" = ":buffer-previous", "x" = ":buffer-close" }
+"C-i" = { "b" = ":sh arduino-cli compile .", u = ":sh arduino-cli upload ."}  
 
 [keys.insert]
 "j" = { "k" = "normal_mode" } # Maps `jk` to exit insert mode
@@ -74,4 +76,3 @@ wrap-indicator = ""  # set wrap-indicator to "" to hide it
 "C-k" = "move_line_up"
 "C-l" = "move_char_right"
 "C-h" = "move_char_left"
-

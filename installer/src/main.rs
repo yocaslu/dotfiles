@@ -87,7 +87,7 @@ pub mod setup {
             };
 
             let mut config_path = env::get_home_path();
-            config_path.push(".config");
+            config_path.push(".config/");
 
             if !Path::new(&config_path).exists() {
                 match create_dir(&config_path) {
@@ -146,9 +146,3 @@ pub mod setup {
 
     mod check {}
 }
-
-/* use std::os::unix::fs;
-fn main() -> std::io::Result<()> {
-    fs::symlink("a.txt", "b.txt")?;
-    Ok(())
-} */

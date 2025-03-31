@@ -1,3 +1,20 @@
+[language-server.arduino-lsp]
+command = "arduino-language-server" 
+args = ["-cli", "arduino-cli", "-cli-config", "~/.arduino15/arduino-cli.yaml", "-clangd", "clangd"]
+
+[[grammar]]
+name = "cpp"
+source = { git = "https://github.com/tree-sitter/tree-sitter-cpp", rev = "a90f170f92d5d70e7c2d4183c146e61ba5f3a457" }
+
+[[grammar]]
+name = "arduino"
+source = { git = "https://github.com/ObserverOfTime/tree-sitter-arduino", rev = "db929fc6822b9b9e1211678d508f187894ce0345"}
+
 [[language]]
-name = "rust"
-indent = { tab-width = 2, unit = "  " }
+name = "arduino"
+grammar = "c"
+scope = "source.arduino"
+injection-regex = "arduino"
+file-types = ["ino"]
+roots = [ "sketch.yaml"]
+language-servers = [ "arduino-lsp" ]

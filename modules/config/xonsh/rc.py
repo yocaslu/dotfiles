@@ -29,7 +29,7 @@ env["XONSH_HISTORY_MATCH_ANYWHERE"] = True
 env["COMPLETIONS_CONFIRM"] = True
 env["XONSH_AUTOPAIR"] = True
 
-TEXT_EDITOR = "helix"
+TEXT_EDITOR = "nvim"
 env['EDITOR'] = f'{TEXT_EDITOR}'
 env['VISUAL'] = f'{TEXT_EDITOR}'
 
@@ -49,3 +49,5 @@ alias['cl'] = 'clear'
 alias['fetch'] = 'fastfetch -l arch2'
 alias['syu'] = 'sudo pacman -Syu'
 alias['py'] = 'python3'
+alias['ino'] = 'arduino-cli'
+alias['ino compile'] = 'arduino-cli compile'

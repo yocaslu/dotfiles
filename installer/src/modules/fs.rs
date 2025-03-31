@@ -1,7 +1,6 @@
 use log::{error, info};
 use std::fs::{create_dir, read_dir, remove_dir, remove_file, DirEntry};
-use std::io::{self, Error, ErrorKind};
-use std::ops::IndexMut;
+use std::io::{Error, ErrorKind};
 use std::os::unix::fs::symlink;
 use std::path::{Path, PathBuf};
 use std::process::exit;
@@ -80,64 +79,129 @@ pub fn scandir(path: &PathBuf) -> Vec<PathBuf> {
     return dir_content;
 }
 
-pub fn link(content: &mut Vec<PathBuf>, dest: &PathBuf, overwrite: bool) {
-    for entry in content.iter() {
-        let dest_with_file_name = if entry.is_file() {
-            dest.with_file_name(entry.file_name().unwrap()) // append file name to destination path
-        } else {
-            entry.to_path_buf()
-        };
+// pub fn link(content: &Vec<PathBuf>, dest: &PathBuf, overwrite: bool) {
+//     for entry in content.iter() {
+//         let dest_with_file_name = if entry.is_file() {
+//             dest.with_file_name(entry.file_name().unwrap()) // append file name to destination path
+//         } else {
+//             entry.to_path_buf()
+//         };
 
-        // trying to link entry to dest
-        match symlink(entry, &dest_with_file_name) {
-            Ok(_) => info!(
-                "{} succefully linked to {}",
-                entry.to_str().unwrap(),
-                dest.to_str().unwrap()
-            ),
+//         // trying to link entry to dest
+//         match symlink(&entry, &dest_with_file_name) {
+//             Ok(_) => info!(
+//                 "{} succefully linked to {}",
+//                 entry.to_str().unwrap(),
+//                 dest.to_str().unwrap()
+//             ),
 
-            // looking if it already exist
-            Err(e) => match e.kind() {
-                ErrorKind::AlreadyExists => {
-                    if overwrite {
-                        // creting path to the non dotfiles entry
-                        let impostor_entry =
-                            PathBuf::from(dest).with_file_name(entry.file_name().unwrap());
+//             // looking if it already exist
+//             Err(e) => match e.kind() {
+//                 ErrorKind::AlreadyExists => {
+//                     if overwrite {
+//                         // creting path to the non dotfiles entry
+//                         let impostor_entry =
+//                             PathBuf::from(dest).with_file_name(entry.file_name().unwrap());
 
-                        // removing the non dotfile entry from dest
-                        if entry.is_file() {
-                            match remove_file(&impostor_entry) {
-                                Ok(_) => {
-                                    info!(
-                                        "succefully removed {} from {}.",
-                                        entry.file_name().unwrap().to_str().unwrap(),
-                                        dest.to_str().unwrap()
-                                    );
+//                         // removing the non dotfile entry from dest
+//                         if entry.is_file() {
+//                             match remove_file(&impostor_entry) {
+//                                 Ok(_) => {
+//                                     info!(
+//                                         "succefully removed {} from {}.",
+//                                         entry.file_name().unwrap().to_str().unwrap(),
+//                                         dest.to_str().unwrap()
+//                                     );
 
-                                    // pushing entry again to content
-                                    // so it tries to link again
-                                    content.push(entry.to_owned());
-                                }
+//                                     // pushing entry again to content
+//                                     // so it tries to link again
+//                                     content.push(entry.to_owned());
+//                                 }
 
-                                Err(e) => {
-                                    error!("")
-                                }
-                            }
-                        } else if entry.is_dir() {
-                            remove_dir(&impostor_entry);
-                        }
-                    }
-                }
+//                                 Err(e) => {
+//                                     error!(
+//                                         "failed to remove {} from {} due to {}.",
+//                                         entry.file_name().unwrap().to_str().unwrap(),
+//                                         dest.to_str().unwrap(),
+//                                         e
+//                                     );
+//                                 }
+//                             }
+//                         } else if entry.is_dir() {
+//                             remove_dir(&impostor_entry);
+//                         }
+//                     }
+//                 }
 
-                _ => {
-                    error!(
-                        "failed to link {} to {} due to: {}",
-                        entry.file_name().unwrap().to_str().unwrap(),
-                        dest.to_str().unwrap(),
-                        e
-                    );
-                }
-            },
+//                 _ => {
+//                     error!(
+//                         "failed to link {} to {} due to: {}",
+//                         entry.file_name().unwrap().to_str().unwrap(),
+//                         dest.to_str().unwrap(),
+//                         e
+//                     );
+//                 }
+//             },
+//         }
+//     }
+// }
+
+// just concat dest + paths[i].file_name
+pub fn add_file_name(paths: &Vec<PathBuf>, dest: &PathBuf) -> Vec<PathBuf> {
+    let paths_buff: Vec<PathBuf> = paths.clone();
+    paths_buff
+        .iter()
+        .map(|x| {
+            let mut path = dest.clone();
+            path.push(x.file_name().unwrap());
+            path
+        })
+        .collect()
+}
+
+pub fn filter_link(content: &Vec<PathBuf>, dest: &PathBuf, overwrite: bool) {}
+
+pub fn link(content: &Vec<PathBuf>, dest: &PathBuf, overwrite: bool) {
+    if !overwrite {
+        // warning which modules wont be installed
+        let wont_install: Vec<PathBuf> = content
+            .iter()
+            .filter(|x| x.exists())
+            .map(|x| {
+                let mut path = dest.clone();
+                path.push(x.file_name().unwrap());
+                path
+            })
+            .collect();
+
+        info!("the following dotfiles already exist in {} and won't be linked: {:#?}\nRun the program with --overwrite flag to replace these dotfiles.", dest.to_str().unwrap(), wont_install);
+
+        let will_install: Vec<PathBuf> = content
+            .iter()
+            .filter(|x| !x.exists())
+            .map(|x| {
+                let mut path: PathBuf = dest.clone();
+                path.push(x.file_name().unwrap());
+                path
+            })
+            .collect();
+
+        for entry in will_install {
+            dbg!(&entry, &dest);
+            match symlink(&entry, dest) {
+                Ok(_) => info!(
+                    "{} succefully linked to {}",
+                    &entry.to_str().unwrap(),
+                    dest.to_str().unwrap()
+                ),
+
+                Err(e) => error!(
+                    "failed to link {} to {} due to: {}",
+                    &entry.to_str().unwrap(),
+                    dest.to_str().unwrap(),
+                    e
+                ),
+            }
         }
     }
 }
