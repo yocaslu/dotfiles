@@ -73,8 +73,14 @@ pub mod setup {
                 }
             };
 
+            // reading all dotfiles inside repo's home module
             let dotfiles_home_content = fs::scandir(&dotfiles_home_path);
-            fs::link(&dotfiles_home_content, &home_path, overwrite);
+
+            if overwrite {
+                fs::overwrite(dotfiles_home_content, &home_path);
+            } else {
+                fs::link(dotfiles_home_content, &home_path);
+            }
         }
 
         pub fn link_config(modules_path: &PathBuf, overwrite: bool) {
@@ -99,8 +105,14 @@ pub mod setup {
                 };
             }
 
+            // reading all dotfiles inside repo's config module
             let dotfiles_config_content = fs::scandir(&dotfiles_config_path);
-            fs::link(&dotfiles_config_content, &config_path, overwrite);
+
+            if overwrite {
+                fs::overwrite(dotfiles_config_content, &config_path);
+            } else {
+                fs::link(dotfiles_config_content, &config_path);
+            }
         }
     }
 

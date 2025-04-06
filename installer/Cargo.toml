@@ -8,5 +8,6 @@ about = "link dio dotfiles to home and .config folders"
 [dependencies]
 clap = { version = "4.5.20", features = ["derive"] }
 env_logger = "0.11.5"
+inquire = "0.7.5"
 log = "0.4.22"
 serde = "1.0.214"
