@@ -1,5 +1,6 @@
-use log::{error, info};
-use std::fs::{create_dir, read_dir, remove_dir, remove_file, DirEntry};
+use inquire::Confirm;
+use log::{error, info, warn};
+use std::fs::{read_dir, remove_dir, remove_file, DirEntry};
 use std::io::{Error, ErrorKind};
 use std::os::unix::fs::symlink;
 use std::path::{Path, PathBuf};
@@ -79,131 +80,99 @@ pub fn scandir(path: &PathBuf) -> Vec<PathBuf> {
     return dir_content;
 }
 
-// pub fn link(content: &Vec<PathBuf>, dest: &PathBuf, overwrite: bool) {
-//     for entry in content.iter() {
-//         let dest_with_file_name = if entry.is_file() {
-//             dest.with_file_name(entry.file_name().unwrap()) // append file name to destination path
-//         } else {
-//             entry.to_path_buf()
-//         };
-
-//         // trying to link entry to dest
-//         match symlink(&entry, &dest_with_file_name) {
-//             Ok(_) => info!(
-//                 "{} succefully linked to {}",
-//                 entry.to_str().unwrap(),
-//                 dest.to_str().unwrap()
-//             ),
-
-//             // looking if it already exist
-//             Err(e) => match e.kind() {
-//                 ErrorKind::AlreadyExists => {
-//                     if overwrite {
-//                         // creting path to the non dotfiles entry
-//                         let impostor_entry =
-//                             PathBuf::from(dest).with_file_name(entry.file_name().unwrap());
-
-//                         // removing the non dotfile entry from dest
-//                         if entry.is_file() {
-//                             match remove_file(&impostor_entry) {
-//                                 Ok(_) => {
-//                                     info!(
-//                                         "succefully removed {} from {}.",
-//                                         entry.file_name().unwrap().to_str().unwrap(),
-//                                         dest.to_str().unwrap()
-//                                     );
-
-//                                     // pushing entry again to content
-//                                     // so it tries to link again
-//                                     content.push(entry.to_owned());
-//                                 }
-
-//                                 Err(e) => {
-//                                     error!(
-//                                         "failed to remove {} from {} due to {}.",
-//                                         entry.file_name().unwrap().to_str().unwrap(),
-//                                         dest.to_str().unwrap(),
-//                                         e
-//                                     );
-//                                 }
-//                             }
-//                         } else if entry.is_dir() {
-//                             remove_dir(&impostor_entry);
-//                         }
-//                     }
-//                 }
-
-//                 _ => {
-//                     error!(
-//                         "failed to link {} to {} due to: {}",
-//                         entry.file_name().unwrap().to_str().unwrap(),
-//                         dest.to_str().unwrap(),
-//                         e
-//                     );
-//                 }
-//             },
-//         }
-//     }
-// }
-
-// just concat dest + paths[i].file_name
-pub fn add_file_name(paths: &Vec<PathBuf>, dest: &PathBuf) -> Vec<PathBuf> {
-    let paths_buff: Vec<PathBuf> = paths.clone();
-    paths_buff
+pub fn overwrite(content: Vec<PathBuf>, dest: &PathBuf) {
+    let will_delete: Vec<PathBuf> = content
         .iter()
+        .filter(|x| x.exists())
         .map(|x| {
             let mut path = dest.clone();
             path.push(x.file_name().unwrap());
             path
         })
-        .collect()
-}
+        .collect();
 
-pub fn filter_link(content: &Vec<PathBuf>, dest: &PathBuf, overwrite: bool) {}
+    warn!("the following dotfiles already exists and will be DELETED: {:#?}\nRun the program without --overwrite to keep these dotfiles.", &will_delete);
+    let confirmation: bool = Confirm::new("Are you sure you want to delete these files?")
+        .with_default(false)
+        .prompt()
+        .unwrap();
 
-pub fn link(content: &Vec<PathBuf>, dest: &PathBuf, overwrite: bool) {
-    if !overwrite {
-        // warning which modules wont be installed
-        let wont_install: Vec<PathBuf> = content
-            .iter()
-            .filter(|x| x.exists())
-            .map(|x| {
-                let mut path = dest.clone();
-                path.push(x.file_name().unwrap());
-                path
-            })
-            .collect();
+    if !confirmation {
+        error!("Installation aborted.");
+        std::process::exit(-1);
+    }
 
-        info!("the following dotfiles already exist in {} and won't be linked: {:#?}\nRun the program with --overwrite flag to replace these dotfiles.", dest.to_str().unwrap(), wont_install);
-
-        let will_install: Vec<PathBuf> = content
-            .iter()
-            .filter(|x| !x.exists())
-            .map(|x| {
-                let mut path: PathBuf = dest.clone();
-                path.push(x.file_name().unwrap());
-                path
-            })
-            .collect();
-
-        for entry in will_install {
-            dbg!(&entry, &dest);
-            match symlink(&entry, dest) {
-                Ok(_) => info!(
-                    "{} succefully linked to {}",
-                    &entry.to_str().unwrap(),
-                    dest.to_str().unwrap()
-                ),
-
+    // deleting impostor dotfiles
+    will_delete.iter().for_each(|x| {
+        if x.is_file() || x.is_symlink() {
+            match remove_file(x) {
+                Ok(_) => info!("{} succefully deleted.", x.to_str().unwrap(),),
+                Err(e) => error!("failed to remove {} due to: {}.", x.to_str().unwrap(), e),
+            }
+        } else if x.is_dir() {
+            match remove_dir(x) {
+                Ok(_) => info!("{} directory succefully deleted.", x.to_str().unwrap()),
                 Err(e) => error!(
-                    "failed to link {} to {} due to: {}",
-                    &entry.to_str().unwrap(),
-                    dest.to_str().unwrap(),
+                    "failed to remove directory {} due to: {}",
+                    x.to_str().unwrap(),
                     e
                 ),
             }
         }
-    }
+    });
+
+    // creating path and linking
+    content.iter().for_each(|x| {
+        let mut x_dest = dest.clone();
+        x_dest.push(x.file_name().unwrap());
+
+        match symlink(x, &x_dest) {
+            Ok(_) => info!("{} succefully linked.", x.to_str().unwrap()),
+            Err(e) => error!("failed to link {} due to: {}", x_dest.to_str().unwrap(), e),
+        }
+    });
 }
 
-pub fn unlink(dotfiles_src_content: &Vec<PathBuf>, src_path: PathBuf) {}
+pub fn link(content: Vec<PathBuf>, dest: &PathBuf) {
+    // warning which modules wont be installed
+    let wont_install: Vec<PathBuf> = content
+        .iter()
+        .filter(|x| x.exists())
+        .map(|x| {
+            let mut path = dest.clone();
+            path.push(x.file_name().unwrap());
+            path
+        })
+        .collect();
+
+    info!("the following dotfiles already exist in {} and won't be linked: {:#?}\nRun the program with --overwrite flag to replace these dotfiles.", dest.to_str().unwrap(), &wont_install);
+    content.iter().filter(|x| x.exists()).for_each(|x| {
+        let mut x_dest: PathBuf = dest.clone();
+        x_dest.push(x.file_name().unwrap());
+        // dbg!(x_dest);
+        match symlink(x, &x_dest) {
+            Ok(_) => info!("{} succefully linked.", x.to_str().unwrap()),
+            Err(e) => error!("failed to link {} due to: {}", x_dest.to_str().unwrap(), e),
+        }
+    });
+}
+
+pub fn unlink(dotfiles_src_content: &Vec<PathBuf>, src_path: PathBuf) {
+    dotfiles_src_content.iter().for_each(|x| {
+        let mut x_src = src_path.clone();
+        x_src.push(x.file_name().unwrap());
+        dbg!(&x_src);
+
+        match remove_file(&x_src) {
+            Ok(_) => info!(
+                "{} succefully removed from your computer.",
+                &x_src.to_str().unwrap()
+            ),
+            Err(e) => error!(
+                "failed to remove {} due to: {}",
+                &x_src.to_str().unwrap(),
+                e
+            ),
+        }
+    });
+}
