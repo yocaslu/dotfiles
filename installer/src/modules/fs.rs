@@ -1,6 +1,6 @@
 use inquire::Confirm;
 use log::{error, info, warn};
-use std::fs::{read_dir, remove_dir, remove_file, DirEntry};
+use std::fs::{read_dir, remove_dir_all, remove_file, DirEntry};
 use std::io::{Error, ErrorKind};
 use std::os::unix::fs::symlink;
 use std::path::{Path, PathBuf};
@@ -110,7 +110,7 @@ pub fn overwrite(content: Vec<PathBuf>, dest: &PathBuf) {
                 Err(e) => error!("failed to remove {} due to: {}.", x.to_str().unwrap(), e),
             }
         } else if x.is_dir() {
-            match remove_dir(x) {
+            match remove_dir_all(x) {
                 Ok(_) => info!("{} directory succefully deleted.", x.to_str().unwrap()),
                 Err(e) => error!(
                     "failed to remove directory {} due to: {}",
