@@ -1,5 +1,4 @@
 mod modules;
-use log::{error, info};
 use modules::{cli, env, fs, log as mylog};
 use std::path::PathBuf;
 
@@ -42,7 +41,7 @@ pub mod setup {
         process::exit,
     };
 
-    pub fn install(modules: Vec<String>, overwrite: bool, all: bool) {
+    pub fn install(_modules: Vec<String>, overwrite: bool, all: bool) {
         let modules_path = find_modules();
         if all {
             install::link_home(&modules_path, overwrite);
@@ -50,7 +49,7 @@ pub mod setup {
         }
     }
 
-    pub fn uninstall(modules: Vec<String>, all: bool) {
+    pub fn uninstall(_modules: Vec<String>, all: bool) {
         let modules_path = find_modules();
         if all {
             uninstall::unlink_home(&modules_path);

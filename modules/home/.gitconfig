@@ -8,3 +8,9 @@
 	email = 110935148+olaLucas@users.noreply.github.com
 [core]
 	editor = nvim
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
