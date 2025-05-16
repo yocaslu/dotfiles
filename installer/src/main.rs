@@ -2,17 +2,11 @@ mod modules;
 use modules::{cli, env, fs, log as mylog};
 use std::path::PathBuf;
 
-fn find_modules() -> PathBuf {
-    let mut pwd = env::get_pwd();
-    pwd.pop();
+fn get_repo_root() -> PathBuf {
+    let mut repo_root = env::get_pwd();
+    repo_root.pop();
 
-    match fs::searchdir(&pwd, &PathBuf::from("modules")) {
-        Ok(s) => s,
-        Err(_) => {
-            log::error!("failed to find repo's modules.");
-            std::process::exit(-1);
-        }
-    }
+    return repo_root;
 }
 
 fn main() {
@@ -32,7 +26,7 @@ fn main() {
 
 pub mod setup {
     use crate::{
-        find_modules,
+        get_repo_root,
         modules::{env, fs},
     };
     use log::{error, info};
@@ -42,7 +36,7 @@ pub mod setup {
     };
 
     pub fn install(_modules: Vec<String>, overwrite: bool, all: bool) {
-        let modules_path = find_modules();
+        let modules_path = get_repo_root();
         if all {
             install::link_home(&modules_path, overwrite);
             install::link_config(&modules_path, overwrite);
@@ -50,7 +44,7 @@ pub mod setup {
     }
 
     pub fn uninstall(_modules: Vec<String>, all: bool) {
-        let modules_path = find_modules();
+        let modules_path = get_repo_root();
         if all {
             uninstall::unlink_home(&modules_path);
             uninstall::unlink_config(&modules_path);
