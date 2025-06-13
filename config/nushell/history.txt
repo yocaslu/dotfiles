@@ -1,0 +1,617 @@
+exit
+yay -S pavucontrol
+clear
+yay -S github-cli
+yay -S bitwarden
+gh auth login
+mkdir repos
+cd repos
+gh repo login
+gh repo clone yocaslu/dotfiels
+gh repo clone yocaslu/dotfiles
+yay -S uv
+yay -S nvim helix tmux nnn-nerd ranger
+yay -S nvim helix tmux nnn-nerd 
+yay ranger
+ranger
+cargo run -- install --all --overwrite
+clear
+cd ..
+cd ~
+ls -l
+clear
+yay -S lsd bat
+lsd
+lsd -la
+exec
+exec wwhich
+lsd .config
+cd repos/dotfiles/config
+mkdir waybar
+cd waybar/
+touch config.jsonc
+vim config.jsonc
+cd .././
+cd ../
+cd installer
+cargo run -- install --all --overwrite
+clear
+exit
+vim .config/waybar/config.jsonc
+yay -S ruff 
+exit
+yay visual-studio
+exit
+cd repos
+mkdir task-manager
+cd task-manager/
+uv init
+uv venv
+uv pip install typer rich
+sudo os-probner
+sudo os-prober
+yay -S update-grub
+sudo vim /etc/default/grub
+sudo update-grub
+clear
+yay -S spotify
+code .
+cd ~/.config
+bat waybar/config.jsonc
+helix waybar/config.jsonc
+reboot
+cd repos
+cd task-manager/
+uv run
+uv run main.py
+helix .
+exit
+tmux 
+code .
+helix .config/waybar/config.jsonc
+swaymsd -t get_inputs
+swaymsg -t get_inputs
+man sway-input
+man 7 keyboard-config
+man keyboard-config
+helix .config/sway/config
+man 7 xkeyboard-config
+yay chrome
+clear
+cd ..
+mkdir x11-py
+cd x11-py/
+cd ..
+rm x11-py/
+mkdir pytop
+cd pytop
+uv init
+uv venv
+uv pip install rich textual psutil
+helix main.py
+exit
+eixt
+exit
+tmux 
+code .
+uv run main.py
+clear
+uv run main.py
+K
+uv run main.py
+clear
+uv run main.py
+clear
+fastfetch
+yay -S fastfetch
+yay -S chafa
+chafa --help
+chafa ~/Downloads/pixel-pentagram.jpg
+chafa `~/Downloads/Forza Horizon 4 01_07_2022 20_31_30.png`
+helix style.tcss
+btop
+yay -S btop
+yay -S rocm-smi-lib
+btop
+uv run main.py
+1
+uv run main.py
+clear
+uv run main.py
+systemctl suspend
+uv run main.py
+uv run reactive.py
+yay -S xonsh
+xonsh
+exit
+clear
+uv run main.py
+clear
+uv run main.py
+yay nvim
+clear
+yay npm
+yay -S pyright 
+clear
+cd ~/repos
+gh clone repo yocaslu/nvim
+gh repo clone yocaslu/nvim
+cd nvim
+ls 
+cargo run
+nvim
+clear
+btop
+TEXTUAL_DEV=1 uv run main.py
+systemctl suspend
+exit
+tmux
+exit
+reboot
+nmtui
+cd repos/pytop/
+helix main.py
+cd ..
+cd .
+cd ..
+cd .config/waybar
+helix config.jsonc
+reboot
+clear
+fastfetch
+cd repos/pytop/
+code .
+cd .config/waynar
+cd .config/waybar
+ls
+heli config.jsonc
+helix config.jsonc
+reboot
+cd repos/pytop/
+code .
+uv run main.py
+ls
+bat log
+uv run main.py
+bat log
+echo "" > log
+bat log
+uv run main.py
+bat log
+clear
+uv pip install loguru
+uv add rich textual loguru
+uv run main.py
+bat debug.log
+uv run main.py
+bat debug.log
+uv run main.py
+bat debug.log
+poweroff
+cd repos/pytop/
+code .
+nmtui
+uv run main.py
+bat debug.log
+uv run main.py
+bat debug.log
+uv run main.py
+bat debug.log
+clear
+uv run main.py
+clear
+bat debug.log
+uv run main.py
+bat debug.log
+uv run main.py
+bat debug.log
+uv run main.py
+bat debug.log
+uv run main.py
+bat debug.log
+clear
+uv run main.py
+bat debug.log
+rm debug.log
+uv run main.py
+bat debug.log
+uv run main.py
+clear
+cd repos/pytop/
+code .
+uv run main.py
+bat debug.log
+btopm
+uv run main.py
+bat debug.log
+yay 
+poweroff
+yay 
+cd repos 
+ls 
+cd nvim
+ll
+ls
+bat src/main.rs
+nmtui
+clear
+nmtui
+cd ..
+cd pytop/
+poweroff
+yay
+yay -S thunar
+exit
+fastfetch
+cd repos/pytop
+ls 
+code .
+reboot
+yay 
+celar
+clear
+cd repos/pytop
+ls
+helix main.py
+nvim main.py
+code .
+uv run stopwatch.py
+python3
+uv venv run
+uv venv pip
+uv pip list
+uv run python3
+clear
+bash 
+clear
+uv run stopwatch.py
+clear
+uv run stopwatch.py
+reboot
+cd repos/pytop
+clear
+code .
+poweroff
+nmtui
+exit
+reboot
+yay 
+nmtui
+clear
+yay
+cd repos/pytop/
+ls
+helix stopwatch.py
+clear
+uv run stopwatch.py
+yay nm-connection-editor
+yay nm-applet
+yay nm
+clear
+yay network-manager-applet
+fastfetch
+clear
+cd ..
+clear
+ls
+cd .config
+ls 
+cd waybar
+ls
+cd ..
+cd sway
+ls
+cd scripts/
+ll
+ls
+touch launch_waybar.py
+rm waybar.py
+ls
+swaymsd -t get_inputs
+swaymsg -t get_inputs
+cd .config/sway
+helix config.d/50-systemd-user.conf
+swaymsg -t get_inputs
+helix config
+clear
+exit
+exit
+ps
+bash
+ps
+ps | grep -e "waybar"
+man ps
+ps -h
+ps --help
+ps | where name =~ 'waybar'
+ps | where name =~ 'wayb'
+clear
+fastfetch
+sudo timeshift --create --comment "usual"
+ps --help
+bash
+ps -eo mcd
+ps -eo cmd
+helix launch_waybar.py
+python3 launch_waybar.py
+ps | where name =~ 'waybar'
+ps
+ps -h
+ps | where name =~ 'waybar' | get pid
+ps | where name =~ 'waybar' | get cmd,pid
+ps | where name =~ 'waybar' | get cmd
+ps | where name =~ 'waybar' | get name
+ps | where name =~ 'waybar' | get name,pid
+ps | where name =~ 'waybar' | get name, pid
+ps | where name =~ 'waybar' | get name
+ps | where name =~ 'waybar' | get name, pid
+ps | where name =~ 'waybar' | get pid
+helix launch_waybar.py
+:w
+clear
+ls
+mkdir logs
+python3 launch_waybar.py
+ls
+bat logs/launch_waybar.debug
+python3 launch_waybar.py
+clear
+ps | where name =~ 'waybar'
+ps | where name =~ 'waybar' --help
+uv run stopwatch.py
+uv run launch_waybar.py
+clear
+uv init
+ls
+uv venv
+uv pip install loguru
+uv pip install rich 
+uv pip install psutil
+celar
+clear
+helix launch_waybar.py
+exit
+code .
+uv run launch_waybar.py
+python3
+uv run python3
+uv run launch_waybar.py
+bat logs/launch_waybar.debug
+bat logs/launcher_waybar.debug
+rm logs/launcher_waybar.debug
+uv run launch_waybar.py
+bat logs/launch_waybar.debug
+yay
+pwoeroff
+poweroff
+yay
+poweroff
+yay
+reboot
+yay
+cd repos/pytop/
+ls
+bat log
+bat debug.log
+rm debug.log
+reboot
+yay
+nmtui
+yay
+nmtui
+exit
+sudo timeshift --create --comment "before update"
+cd repos/pytop/
+bat log
+uv run stopwatch.py
+ls
+bat log 
+bat debug.log
+bat stopwatch.py
+clear
+exit
+yay
+reboot
+cd repos/pytop/
+ls
+ls run
+ls run/bin
+ping google.com
+poweroff
+yay
+clear
+sudo timeshift --create --comment "before update"
+yay
+clear
+exit
+grep "^menuentry" /boot/grub/grub.cfg
+sudo grep "^menuentry" /boot/grub/grub.cfg
+which vim
+sudo vim /etc/default/grub
+reboot
+sudo grep "^menuentry" /boot/grub/grub.cfg
+sudo vim /etc/default/grub
+exit
+sudo grep "^menuentry" /boot/grub/grub.cfg
+sudo vim /etc/default/grub
+reboot
+sudo vim /etc/default/grub
+reboot
+yay rpi
+celar
+clear
+yay
+reboot
+cd repos
+ll
+ls 
+mkdir agenda
+cd agenda
+git init
+ls
+ls -la
+rm -R .git
+rm -r .git
+ls
+ls -la
+clear
+gh repo 
+gh 
+gh repo create
+ls
+mv mirror-agenda ../
+ls 
+rm -r agenda
+cd ..
+rm -r agenda
+cd mirror-agenda/
+ls
+uv init
+uv 
+ls
+code .
+uv venv
+uv pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+uv pip install loguru
+ls
+mv ~/Downloads/client_secret_851146088811-6mek71lui85bg5h311lp6rrph5seo9kk.apps.googleusercontent.com.json ./credentials.json
+ls
+bat credentials.json
+poweroff
+nmtui
+cd repos
+cd mirror-agenda/
+ls
+code .
+uv run main.py
+git status
+git commit -A
+git commit -a
+git config --global user.mail "lsantos2003silva@gmail.com"
+git config --global user.name "Lucas Santos"
+git commit -a
+ls
+cat token.json
+git status
+git commit 
+git config --global user.name "Lucas Santos"
+git commit 
+git config --global user.mail "lsantos2003silva@gmail.com"
+git commit 
+reboot
+cd repos/mirror-agenda/
+git commit -a
+ls -la ~
+ls -a ~
+bat ~/.gitconfig
+gh repo
+gh 
+ls
+ls -a
+rm -r .git
+git init
+git branch -m main
+git remote
+git remote --help
+git remote add -m https://github.com/yocaslu/mirror-agenda.git
+git remote add https://github.com/yocaslu/mirror-agenda.git
+git remote add -m origin https://github.com/yocaslu/mirror-agenda.git
+git remote add origin https://github.com/yocaslu/mirror-agenda.git
+git commit -a
+git config --global user.mail "lsantos2003silva@gmail.com"
+git config --global user.name "Lucas Santos"
+git commit -a
+lgit
+lazygit
+yay -S lazygit
+lazygit
+git config  user.name "Lucas Santos"
+git config user.name "Lucas Santos"
+git config user.mail "lsantos2003silva@gmail.com"
+lazygit
+ls
+ls -a
+ls .git
+exit
+gh
+gh config
+gh config list
+cd repos/mirror-agenda/\
+cd repos/mirror-agenda/
+ls
+rm -r .git
+ls -a
+gh clone repo yocaslu/mirror-agenda
+gh repo clone yocaslu/mirror-agenda
+ll
+ls
+ls -a
+git init
+man git
+git config get --all
+git config --all
+git config --get-all
+git config get name
+git config get user.name
+git config get user.mail
+git commit -a
+ls -a
+cd .git
+ls -a
+bat config
+rm config
+bat head
+bat HEAD
+cd ..
+ls
+git commit -a
+bat .git/config
+rm -r .git
+cd ..
+ls
+zip mirror-agenda/
+zip mirror-agenda
+cd repos/mirror-agenda/
+ls
+cd ..
+rm -r mirror-agenda mirror-agenda.zip
+gh repo clone yocaslu/mirror-agenda
+cd mirror-agenda/
+ls
+cd mirror-agenda/
+ls
+nnn
+cd ..
+cd ~/repos/
+ls -r mirror-agenda/
+rm-r mirror-agenda/
+rm -r mirror-agenda/
+ls 
+gh repo clone yocaslu/mirror-agenda
+cd mirror-agenda/mirror-agenda/
+mv * ../
+cd ..
+ls -a
+rm -r mirror-agenda/
+ls
+ls -a
+git status
+git add *
+git status
+git commit -a
+rm ~/.gitconfig
+git config --global user.name "Lucas Santos"
+git config --global user.mail "lsantos2003silva@gmail.com"
+git commit -a
+bat ~/.gitconfig
+ls .git
+bat .git/config
+poweroff
+yay
+ls
+bat sudo
+cd repos/dotfiles
+git status
+git commit -a
+git config --global user.email "lsantos2003silva@gmail.com"
+git commit -a

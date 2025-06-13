@@ -59,12 +59,17 @@ output eDP-1 resolution 1920x1080 position 2560,0
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
-input "2:14:SynPS/2_Synaptics_TouchPad" {
-      dwt enabled
-      tap enabled
-      natural_scroll enabled
-      middle_emulation enabled
-  }
+# ideapad 3 mousepad
+input 1160:4116:CRQ1080:00_0488:1014_Touchpad {
+       dwt enabled
+       tap enabled
+       natural_scroll enabled
+       middle_emulation enabled
+}
+
+input type:keyboard {
+    xkb_layout us,br
+}
 
 ### Key bindings
 #
@@ -87,7 +92,7 @@ input "2:14:SynPS/2_Synaptics_TouchPad" {
     floating_modifier $mod normal
 
     # Reload the configuration file
-    bindsym $mod+Shift+r reload
+    bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
@@ -99,7 +104,6 @@ input "2:14:SynPS/2_Synaptics_TouchPad" {
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
-
     # Or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
@@ -111,7 +115,6 @@ input "2:14:SynPS/2_Synaptics_TouchPad" {
     bindsym $mod+Shift+$down move down
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
-
     # Ditto, with arrow keys
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
@@ -181,7 +184,6 @@ input "2:14:SynPS/2_Synaptics_TouchPad" {
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
-
 #
 # Resizing containers:
 #
@@ -206,7 +208,6 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
-
 #
 # Utilities:
 #
@@ -225,21 +226,21 @@ bindsym $mod+r mode "resize"
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-
-exec waybar
-
 # bar {
 #     position top
-#
+# 
 #     # When the status_command prints a new line to stdout, swaybar updates.
 #     # The default just shows the current date and time.
 #     status_command while date +'%Y-%m-%d %X'; do sleep 1; done
-#
+# 
 #     colors {
 #         statusline #ffffff
 #         background #323232
 #         inactive_workspace #32323200 #32323200 #5c5c5c
 #     }
 # }
+
+# exec killall waybar
+exec waybar
 
 include /etc/sway/config.d/*
