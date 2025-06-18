@@ -18,10 +18,11 @@
         "mpd",
         "idle_inhibitor",
         "pulseaudio",
+        "bluetooth",
         "network",
         "power-profiles-daemon",
-        "cpu",
-        "memory",
+        // "cpu",
+        // "memory",
         "temperature",
         "backlight",
         // "keyboard-state",
@@ -103,10 +104,9 @@
     "tray": {
         // "icon-size": 21,
         "spacing": 10,
-        // "icons": {
-        //   "blueman": "bluetooth",
-        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
-        // }
+        "icons": {
+          "blueberry": "bluetooth",
+        }
     },
     "clock": {
         // "timezone": "America/New_York",
@@ -171,6 +171,23 @@
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
+    "bluetooth": {
+        "format": "{icon} {status}",
+        "format-icons": {
+            "enabled": "",
+            "disabled": "",
+            "connected": ""
+        },
+        "format-status": {
+            "connected": "{device_battery_percentage}%",
+            "disconnected": "Off",
+            "enabled": "On"
+        },
+        "interval": 10,
+        "on-click": "blueberry",
+        "on-click-right": "bluetoothctl power toggle",
+        "tooltip-format": "{controller_alias}\n{controller_address}\n\n{num_connections} connected"
+    },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "VOL {volume}% {icon} {format_source}",
@@ -191,7 +208,7 @@
         "on-click": "pavucontrol"
     },
     "sway/language": {
-      "format": "XKB {short} {flag} {variant}",
+      "format": "{short} {flag} {variant}",
       "on-click": "swaymsg input type:keyboard xkb_switch_layout next"  
     },
 }
